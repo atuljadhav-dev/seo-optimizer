@@ -1,4 +1,3 @@
-// src/controllers/auth.controller.ts
 import { type Request, type Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -14,8 +13,17 @@ const generateToken = (id: string): string => {
 
 export const signUp = async (req: Request, res: Response): Promise<void> => {
     try {
+        if (!req.body || Object.keys(req.body).length === 0) {
+            res.status(400).json({ message: "Request body is required" });
+            return;
+        }
         const { name, email, password } = req.body;
-
+        if (!name || !email || !password) {
+            res.status(400).json({
+                message: "Name, email, and password are required",
+            });
+            return;
+        }
         // Validate if the user record already exists
         const userExists = await User.findOne({ email });
         if (userExists) {
@@ -42,7 +50,12 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 export const signIn = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, password } = req.body;
-
+        if (!email || !password) {
+            res.status(400).json({
+                message: "Email and password are required",
+            });
+            return;
+        }
         // Validate if the user record exists in the database
         const user = await User.findOne({ email });
         if (!user || !user.password) {
