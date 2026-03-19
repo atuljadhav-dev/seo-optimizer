@@ -36,7 +36,7 @@ export const protect = async (
 
         // Inject the decoded user information dynamically into the request context
         req.user = { id: decoded.id };
-
+        // Call the next middleware or route handler in the chain
         next();
     } catch (error) {
         res.status(401).json({ message: "Not authorized, invalid token" });

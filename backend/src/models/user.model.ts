@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
-interface IUser extends mongoose.Document {
+interface IUser extends Document {
     name: string;
     email: string;
     password?: string;
 }
 
-const userSchema = new mongoose.Schema<IUser>(
+const userSchema = new Schema<IUser>(
     {
         name: {
             type: String,
