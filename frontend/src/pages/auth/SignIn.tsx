@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const SignIn: React.FC = () => {
+const SignIn: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
