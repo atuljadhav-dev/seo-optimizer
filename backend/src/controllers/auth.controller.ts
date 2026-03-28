@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { User } from "../models/user.model.js";
+import mongoose from "mongoose";
 
 const generateToken = (id: string): string => {
     const secret = process.env.JWT_SECRET;
@@ -32,10 +33,8 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
             });
             return;
         }
-
         // Instantiating the new model instance automatically triggers pre-save password hash hook
         const user = await User.create({ name, email, password });
-
         res.status(201).json({
             _id: user._id,
             name: user.name,
@@ -43,6 +42,13 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
             token: generateToken(user._id.toString()),
         });
     } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            const messages = Object.values(error.errors).map(
+                (err) => err.message
+            );
+            res.status(400).json({ message: messages[0] });
+            return;
+        }
         res.status(500).json({ message: "Internal server error" });
     }
 };

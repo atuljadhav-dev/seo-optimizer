@@ -1,12 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import API from "../../services/api.js";
+import axios from "axios";
 
 const SignIn: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Sign In Submission:", { email, password });
+        setError("");
+        setLoading(true);
+
+        try {
+            const response = await API.post("/auth/signin", {
+                email,
+                password,
+            });
+
+            // Save token in secure cookie for 30 days
+            Cookies.set("token", response.data.token, {
+                expires: 30,
+                secure: true,
+                sameSite: "strict",
+            });
+
+            // Navigate to the secure dashboard routing endpoint
+            navigate("/dashboard");
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                const serverMessage = err.response?.data?.message;
+                setError(serverMessage || "An unexpected error occurred.");
+            } else {
+                setError("An unexpected error occurred.");
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -21,7 +56,13 @@ const SignIn: React.FC = () => {
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                {error && (
+                    <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                        {error}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="mt-6 space-y-6">
                     <div className="space-y-1">
                         <label
                             htmlFor="email"
@@ -36,6 +77,7 @@ const SignIn: React.FC = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full rounded-lg bg-slate-100 px-4 py-2.5 text-sm border border-slate-300 text-slate-900 placeholder-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:bg-slate-900 dark:border-slate-700 dark:text-white dark:placeholder-slate-500"
                             placeholder="you@example.com"
+                            disabled={loading}
                         />
                     </div>
 
@@ -53,13 +95,15 @@ const SignIn: React.FC = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full rounded-lg bg-slate-100 px-4 py-2.5 text-sm border border-slate-300 text-slate-900 placeholder-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 dark:bg-slate-900 dark:border-slate-700 dark:text-white dark:placeholder-slate-500"
                             placeholder="••••••••"
+                            disabled={loading}
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-cyan-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:bg-cyan-500 dark:text-slate-900 dark:hover:bg-cyan-400 dark:focus:ring-offset-slate-800">
-                        Sign In
+                        disabled={loading}
+                        className="w-full rounded-lg bg-cyan-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:bg-cyan-500 dark:text-slate-900 dark:hover:bg-cyan-400 dark:focus:ring-offset-slate-800 disabled:opacity-50">
+                        {loading ? "Signing In..." : "Sign In"}
                     </button>
                 </form>
 

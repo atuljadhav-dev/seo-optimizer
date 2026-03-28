@@ -2,6 +2,7 @@ import express, { type Request, type Response } from "express";
 import dotenv from "dotenv";
 import { connectDatabase } from "./config/db.config.js";
 import authRoutes from "./routers/auth.route.js";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
@@ -12,6 +13,14 @@ app.use((req, res, next) => {
     console.log(`Incoming Request: [${req.method}] ${req.originalUrl}`);
     next();
 });
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL || "http://localhost:5173", // Allow your Vite dev server
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true, // Crucial for reading/writing secure cookie layers across origins
+    })
+);
 connectDatabase();
 app.use("/api/auth", authRoutes);
 app.get("/", (req: Request, res: Response) => {
