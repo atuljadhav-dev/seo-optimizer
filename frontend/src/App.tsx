@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/protectedRoute.jsx";
@@ -35,7 +34,7 @@ const DashboardPlaceholder = () => (
     </div>
 );
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
