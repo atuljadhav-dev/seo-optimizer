@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/protectedRoute.jsx";
 import SignIn from "./pages/auth/SignIn.js";
 import SignUp from "./pages/auth/SignUp.js";
+import Overview from "./pages/dashboard/overview.js";
 
 // Placeholder view elements for landing and dashboard pages
 const HomePlaceholder = () => (
@@ -11,26 +12,6 @@ const HomePlaceholder = () => (
         <a href="/signin" className="text-cyan-500 underline mt-4 inline-block">
             Go to Sign In
         </a>
-    </div>
-);
-
-const DashboardPlaceholder = () => (
-    <div className="p-8 text-center dark:text-white">
-        <h1 className="text-3xl font-bold text-green-500">
-            🔒 Secure SEO Dashboard
-        </h1>
-        <p className="mt-2 text-slate-400">
-            Welcome to your metrics console panel.
-        </p>
-        <button
-            onClick={() => {
-                document.cookie =
-                    "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                window.location.href = "/signin";
-            }}
-            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-            Log Out
-        </button>
     </div>
 );
 
@@ -48,7 +29,7 @@ const App: React.FC = () => {
                     path="/dashboard"
                     element={
                         <ProtectedRoute>
-                            <DashboardPlaceholder />
+                            <Overview />
                         </ProtectedRoute>
                     }
                 />
