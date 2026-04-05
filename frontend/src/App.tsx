@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/protectedRoute.jsx";
 import SignIn from "./pages/auth/SignIn.js";
 import SignUp from "./pages/auth/SignUp.js";
 import Overview from "./pages/dashboard/overview.js";
+import Keywords from "./pages/dashboard/Keywords.js";
 
 // Placeholder view elements for landing and dashboard pages
 const HomePlaceholder = () => (
@@ -30,6 +31,14 @@ const App: React.FC = () => {
                     element={
                         <ProtectedRoute>
                             <Overview />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/dashboard/keywords"
+                    element={
+                        <ProtectedRoute>
+                            <Keywords />
                         </ProtectedRoute>
                     }
                 />
