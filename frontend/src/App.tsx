@@ -5,6 +5,7 @@ import SignIn from "./pages/auth/SignIn.js";
 import SignUp from "./pages/auth/SignUp.js";
 import Overview from "./pages/dashboard/overview.js";
 import Keywords from "./pages/dashboard/Keywords.js";
+import ContentOptimizer from "./pages/dashboard/ContentOptimizer.js";
 
 // Placeholder view elements for landing and dashboard pages
 const HomePlaceholder = () => (
@@ -42,7 +43,14 @@ const App: React.FC = () => {
                         </ProtectedRoute>
                     }
                 />
-
+                <Route
+                    path="/dashboard/content"
+                    element={
+                        <ProtectedRoute>
+                            <ContentOptimizer />
+                        </ProtectedRoute>
+                    }
+                />
                 {/* Fallback Catch-All Redirect */}
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
