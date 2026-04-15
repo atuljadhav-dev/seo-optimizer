@@ -1,6 +1,7 @@
 import React, { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import AIAssistant from "../components/AIAssistant";
 
 interface DashboardLayoutProps {
     children: ReactNode;
@@ -72,6 +73,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     <div className="mx-auto max-w-7xl">{children}</div>
                 </main>
             </div>
+            <AIAssistant />
         </div>
     );
 };

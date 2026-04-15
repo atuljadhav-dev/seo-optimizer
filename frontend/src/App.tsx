@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ProtectedRoute from "./components/protectedRoute.jsx";
+import ProtectedRoute from "./components/protectedRoute.js";
 import SignIn from "./pages/auth/SignIn.js";
 import SignUp from "./pages/auth/SignUp.js";
 import Keywords from "./pages/dashboard/Keywords.js";
