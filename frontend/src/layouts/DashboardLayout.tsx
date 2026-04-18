@@ -1,5 +1,5 @@
 import React, { type ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom"; // 1. Swap in NavLink
 import Cookies from "js-cookie";
 import AIAssistant from "../components/AIAssistant";
 
@@ -17,9 +17,15 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         navigate("/signin");
     };
 
+    const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+        `flex items-center space-x-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
+            isActive
+                ? "bg-cyan-50 text-cyan-600 dark:bg-cyan-950/40 dark:text-cyan-400"
+                : "text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800/50"
+        }`;
+
     return (
         <div className="flex h-screen w-full overflow-hidden bg-slate-50 transition-colors duration-200 dark:bg-slate-900 text-slate-900 dark:text-white">
-            {/* Left Fixed Sidebar Drawer */}
             <aside className="hidden md:flex w-64 flex-col border-r border-slate-200 bg-white p-5 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-800">
                 <div className="flex items-center space-x-2 pb-6 border-b border-slate-100 dark:border-slate-700">
                     <div className="h-8 w-8 rounded-lg bg-cyan-500 flex items-center justify-center font-bold text-slate-950">
@@ -30,21 +36,21 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     </span>
                 </div>
 
-                {/* Vertical Panel Links */}
                 <nav className="mt-6 flex-1 space-y-2">
-                    <a
-                        href="/dashboard"
-                        className="flex items-center space-x-3 rounded-lg bg-slate-100 px-4 py-2.5 text-sm font-medium text-cyan-600 transition-all dark:bg-slate-900 dark:text-cyan-400">
+                    <NavLink to="/dashboard" end className={navLinkClass}>
                         <span>📊 Overview Matrix</span>
-                    </a>
-                    <a
-                        href="/dashboard/keywords"
-                        className="flex items-center space-x-3 rounded-lg px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-700/50 transition-all">
-                        <span>🔑 Keyword Analysis</span>
-                    </a>
+                    </NavLink>
+                    <NavLink to="/dashboard/keywords" className={navLinkClass}>
+                        <span>🔑 Keywords</span>
+                    </NavLink>
+                    <NavLink to="/dashboard/content" className={navLinkClass}>
+                        <span>📝 Content Optimizer</span>
+                    </NavLink>
+                    <NavLink to="/dashboard/outreach" className={navLinkClass}>
+                        <span>🤝 Outreach Pipelines</span>
+                    </NavLink>
                 </nav>
 
-                {/* Footer actions inside the drawer */}
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
                     <button
                         onClick={handleSignOut}
@@ -54,9 +60,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 </div>
             </aside>
 
-            {/* Main Content Window Wrapper */}
             <div className="flex flex-1 flex-col overflow-hidden">
-                {/* Horizontal Action Header */}
                 <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-800">
                     <h2 className="text-lg font-semibold tracking-tight">
                         Performance Workspace
@@ -68,11 +72,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     </div>
                 </header>
 
-                {/* Scrollable Workspace Core Canvas */}
                 <main className="flex-1 overflow-y-auto p-6 md:p-8">
                     <div className="mx-auto max-w-7xl">{children}</div>
                 </main>
             </div>
+
             <AIAssistant />
         </div>
     );
