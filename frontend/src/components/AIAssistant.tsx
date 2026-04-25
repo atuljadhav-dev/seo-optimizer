@@ -28,7 +28,6 @@ export const AIAssistant: React.FC = () => {
         setLoading(true);
 
         try {
-            // Direct network dispatch to your real backend AI orchestration route
             const response = await API.post("/ai/chat", {
                 prompt: userMsg.text,
             });
@@ -67,7 +66,7 @@ export const AIAssistant: React.FC = () => {
             </button>
 
             <div
-                className={`fixed bottom-24 right-6 z-50 flex h-[500px] w-80 flex-col rounded-2xl border border-slate-200 bg-white shadow-2xl transition-all duration-300 dark:border-slate-800 dark:bg-slate-800 ${
+                className={`fixed bottom-24 right-6 z-50 flex h-125 w-80 flex-col rounded-2xl border border-slate-200 bg-white shadow-2xl transition-all duration-300 dark:border-slate-800 dark:bg-slate-800 ${
                     isOpen
                         ? "translate-y-0 opacity-100"
                         : "translate-y-12 opacity-0 pointer-events-none"

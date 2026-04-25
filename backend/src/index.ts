@@ -2,6 +2,7 @@ import express, { type Request, type Response } from "express";
 import dotenv from "dotenv";
 import { connectDatabase } from "./config/db.config.js";
 import authRoutes from "./routers/auth.route.js";
+import aiRoutes from "./routers/ai.route.js";
 import cors from "cors";
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(
 );
 connectDatabase();
 app.use("/api/auth", authRoutes);
+app.use("/api/ai", aiRoutes);
 app.get("/", (req: Request, res: Response) => {
     res.json({ message: "SEO Optimizer API Backend Running Smoothly." });
 });
