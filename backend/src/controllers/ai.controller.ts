@@ -36,16 +36,26 @@ export const processChatInstruction = async (
                     "You are an expert AI SEO Optimizer assistant. Provide concise, highly actionable growth strategies regarding meta configurations, keywords, content density, and backlink outreach pipelines. Keep answers short and technical.",
             },
         });
-        if (!contextResponse || !contextResponse.candidates?.length) {
+        if (
+            !contextResponse.candidates ||
+            contextResponse.candidates.length === 0
+        ) {
             res.status(500).json({
                 message: "No valid response received from AI model.",
             });
             return;
         }
-        const replyText =
-            contextResponse?.candidates[0]?.content?.parts[0]?.text ||
-            "No response generated from AI model.";
 
+        const firstCandidate = contextResponse.candidates[0];
+        if (!firstCandidate || !firstCandidate.content) {
+            res.status(500).json({
+                message: "AI model response structure is invalid.",
+            });
+            return;
+        }
+        const firstPart = firstCandidate.content?.parts?.[0];
+        const replyText =
+            firstPart?.text || "No response generated from AI model.";
         res.status(200).json({ reply: replyText });
     } catch (error) {
         console.error("Gemini API Integration Failure:", error);

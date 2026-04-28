@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDatabase } from "./config/db.config.js";
 import authRoutes from "./routers/auth.route.js";
 import aiRoutes from "./routers/ai.route.js";
+import domainRoutes from "./routers/domain.route.js";
 import cors from "cors";
 dotenv.config();
 
@@ -22,9 +23,13 @@ app.use(
         credentials: true, // Crucial for reading/writing secure cookie layers across origins
     })
 );
+
 connectDatabase();
+
 app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/domains", domainRoutes);
+
 app.get("/", (req: Request, res: Response) => {
     res.json({ message: "SEO Optimizer API Backend Running Smoothly." });
 });
