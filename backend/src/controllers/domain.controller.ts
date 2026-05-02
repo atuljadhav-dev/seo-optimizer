@@ -25,7 +25,6 @@ export const trackNewDomain = async (
         }
 
         const cleanUrl = url.replace(/^(https?:\/\/)?(www\.)?/, "").trim();
-
         const domainEntry = await Domain.create({
             user: req.user?._id,
             url: cleanUrl,

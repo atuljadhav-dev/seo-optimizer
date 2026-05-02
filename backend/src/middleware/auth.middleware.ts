@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 export interface AuthenticatedRequest extends Request {
     user?: {
-        id: string;
+        _id: string;
     };
 }
 
@@ -32,10 +32,10 @@ export const protect = async (
         }
 
         // Verify token payload structural validity
-        const decoded = jwt.verify(token, jwtSecret) as { id: string };
+        const decoded = jwt.verify(token, jwtSecret) as { _id: string };
 
         // Inject the decoded user information dynamically into the request context
-        req.user = { id: decoded.id };
+        req.user = { _id: decoded._id };
         // Call the next middleware or route handler in the chain
         next();
     } catch (error) {

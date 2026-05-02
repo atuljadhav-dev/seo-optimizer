@@ -9,7 +9,7 @@ const generateToken = (id: string): string => {
     if (!secret) {
         throw new Error("JWT_SECRET environmental variable is missing.");
     }
-    return jwt.sign({ id }, secret, { expiresIn: "30d" });
+    return jwt.sign({ _id: id }, secret, { expiresIn: "30d" });
 };
 
 export const signUp = async (req: Request, res: Response): Promise<void> => {
