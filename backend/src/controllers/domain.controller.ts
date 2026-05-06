@@ -1,11 +1,8 @@
 import { type Request, type Response } from "express";
 import Domain from "../models/domain.model.js";
+import type { AuthenticatedRequest } from "../middleware/auth.middleware.js";
 
-interface AuthenticatedRequest extends Request {
-    user?: {
-        _id: string;
-    };
-}
+
 
 export const trackNewDomain = async (
     req: AuthenticatedRequest,
