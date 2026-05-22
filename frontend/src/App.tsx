@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ProtectedRoute from "./components/protectedRoute.js";
 import SignIn from "./pages/auth/SignIn.js";
 import SignUp from "./pages/auth/SignUp.js";
 import Keywords from "./pages/dashboard/Keywords.js";
 import ContentOptimizer from "./pages/dashboard/ContentOptimizer.js";
 import Overview from "./pages/dashboard/Overview.js";
-import EmailOutreach from "./pages/offpage/EmailOutReach.js";
+import ProtectedRoute from "./components/ProtectedRoute.js";
+import EmailOutreach from "./pages/offpage/EmailOutreach.js";
+import SerpTracker from "./pages/dashboard/SerpTracker.js";
 
 // Placeholder view elements for landing and dashboard pages
 const HomePlaceholder = () => (
@@ -57,6 +58,14 @@ const App: React.FC = () => {
                     element={
                         <ProtectedRoute>
                             <EmailOutreach />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/dashboard/serp"
+                    element={
+                        <ProtectedRoute>
+                            <SerpTracker />
                         </ProtectedRoute>
                     }
                 />

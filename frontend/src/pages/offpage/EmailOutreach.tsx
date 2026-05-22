@@ -16,7 +16,7 @@ interface Campaign {
     status: "Pending" | "Contacted" | "Acquired" | "Rejected";
 }
 
-export const EmailOutreach: React.FC = () => {
+const EmailOutreach: React.FC = () => {
     const [targetDomain, setTargetDomain] = useState<string>("");
     const [contactEmail, setContactEmail] = useState<string>("");
     const [category, setCategory] = useState<string>("Guest Post");
@@ -40,14 +40,12 @@ export const EmailOutreach: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         setError("");
-
         try {
             const response = await API.post("/outreach", {
                 targetDomain,
                 contactEmail,
                 category,
             });
-
             setCampaigns((prev) => [response.data, ...prev]);
             setTargetDomain("");
             setContactEmail("");

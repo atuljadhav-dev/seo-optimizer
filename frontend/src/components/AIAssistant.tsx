@@ -31,7 +31,7 @@ export const AIAssistant: React.FC = () => {
             const response = await API.post("/ai/chat", {
                 prompt: userMsg.text,
             });
-
+            console.log("AI response received:", response.data);
             const aiMsg: Message = {
                 sender: "ai",
                 text: response.data.reply || "Analysis completed successfully.",
