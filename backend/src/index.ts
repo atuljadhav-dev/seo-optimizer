@@ -7,6 +7,7 @@ import domainRoutes from "./routers/domain.route.js";
 import keywordRoutes from "./routers/keyword.route.js";
 import outreachRoutes from "./routers/outreach.route.js";
 import serpRoutes from "./routers/serp.route.js";
+import parserRoutes from "./routers/parser.route.js";
 import cors from "cors";
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use("/api/domains", domainRoutes);
 app.use("/api/keywords", keywordRoutes);
 app.use("/api/outreach", outreachRoutes);
 app.use("/api/serp", serpRoutes);
+app.use("/api/parser", parserRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.json({ message: "SEO Optimizer API Backend Running Smoothly." });
