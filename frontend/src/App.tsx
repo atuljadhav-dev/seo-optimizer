@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute.js";
 import EmailOutreach from "./pages/offpage/EmailOutreach.js";
 import SerpTracker from "./pages/dashboard/SerpTracker.js";
 import SiteAudit from "./pages/dashboard/SiteAudit.js";
+import LinkAnalyzer from "./pages/dashboard/LinkAnalyzer.js";
 
 // Placeholder view elements for landing and dashboard pages
 const HomePlaceholder = () => (
@@ -75,6 +76,14 @@ const App: React.FC = () => {
                     element={
                         <ProtectedRoute>
                             <SiteAudit />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/dashboard/backlinks"
+                    element={
+                        <ProtectedRoute>
+                            <LinkAnalyzer />
                         </ProtectedRoute>
                     }
                 />
