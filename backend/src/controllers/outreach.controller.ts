@@ -1,70 +1,72 @@
-import { type Response } from "express";
-import Outreach from "../models/outreach.model.js";
-import type { AuthenticatedRequest } from "../middleware/auth.middleware.js";
-
+import { type Request, type Response } from 'express';
+import Outreach from '../models/outreach.model.js';
+import { errorResponse, successResponse } from '../utils/apiResponse.js';
+import { getUserId } from '../middleware/guards.js';
 export const createOutreachPipeline = async (
-    req: AuthenticatedRequest,
-    res: Response
+	req: Request,
+	res: Response,
 ): Promise<void> => {
-    try {
-        const { targetDomain, contactEmail, category } = req.body;
+	try {
+		const userId = getUserId(req); // Extract user ID from request context
+		const { targetDomain, contactEmail, category } = req.body;
 
-        if (!req.user?._id) {
-            res.status(401).json({
-                message: "Not authorized, user profile missing.",
-            });
-            return;
-        }
+		if (!targetDomain || !contactEmail) {
+			errorResponse(
+				res,
+				'Target domain and contact email are explicitly required.',
+				400,
+			);
+			return;
+		}
 
-        if (!targetDomain || !contactEmail) {
-            res.status(400).json({
-                message:
-                    "Target domain and contact email are explicitly required.",
-            });
-            return;
-        }
+		const cleanDomain = targetDomain
+			.replace(/^(https?:\/\/)?(www\.)?/, '')
+			.trim();
 
-        const cleanDomain = targetDomain
-            .replace(/^(https?:\/\/)?(www\.)?/, "")
-            .trim();
-
-        const outreachEntry = await Outreach.create({
-            user: req.user._id,
-            targetDomain: cleanDomain,
-            contactEmail,
-            category,
-            status: "Pending",
-        });
-
-        res.status(201).json(outreachEntry);
-    } catch (error) {
-        console.error("Outreach Log Insertion Failure:", error);
-        res.status(500).json({
-            message: "Internal server error tracking pipeline entry.",
-        });
-    }
+		const outreachEntry = await Outreach.create({
+			user: userId,
+			targetDomain: cleanDomain,
+			contactEmail,
+			category,
+			status: 'Pending',
+		});
+		successResponse(
+			res,
+			'Outreach pipeline entry created successfully.',
+			outreachEntry,
+			201,
+		);
+	} catch (error) {
+		console.error('Outreach Log Insertion Failure:', error);
+		errorResponse(
+			res,
+			'Internal server error tracking pipeline entry.',
+			500,
+		);
+	}
 };
 
 export const getUserOutreachPipelines = async (
-    req: AuthenticatedRequest,
-    res: Response
+	req: Request,
+	res: Response,
 ): Promise<void> => {
-    try {
-        if (!req.user?._id) {
-            res.status(401).json({
-                message: "Not authorized, access token validation missing.",
-            });
-            return;
-        }
-
-        const pipelines = await Outreach.find({ user: req.user._id }).sort({
-            createdAt: -1,
-        });
-        res.status(200).json(pipelines);
-    } catch (error) {
-        console.error("Outreach Pipelines Query Failure:", error);
-        res.status(500).json({
-            message: "Internal server error fetching pipeline summaries.",
-        });
-    }
+	const userId = getUserId(req); // Extract user ID from request context
+	try {
+		const pipelines = await Outreach.find({ user: userId }).sort({
+			createdAt: -1,
+		});
+		successResponse(
+			res,
+			'Outreach pipelines retrieved successfully.',
+			pipelines,
+			200,
+		);
+	} catch (error) {
+		console.error('Outreach Pipelines Query Failure:', error);
+		errorResponse(
+			res,
+			'Internal server error fetching pipeline summaries.',
+			500,
+		);
+	}
 };
