@@ -1,15 +1,14 @@
 export const SEO_SECTION_SCORE = {
 	TITLE: 20,
-
 	META: 20,
-
-	URL: 15,
-
+	URL: 10,
 	HEADING: 15,
-
 	IMAGE: 10,
-
 	LINK: 10,
-
 	TECHNICAL: 10,
+	SCHEMA: 5,
+	OPEN_GRAPH: 5,
+	TWITTER: 5,
+	ACCESSIBILITY: 10,
+	PERFORMANCE: 10,
 } as const;

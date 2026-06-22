@@ -16,6 +16,7 @@ interface AIServiceParams {
         systemInstruction?: string;
         temperature?: number;
         maxOutputTokens?: number;
+        responseMimeType?: string;
     };
 }
 const aiService = async ({ content, config }: AIServiceParams) => {
@@ -33,6 +34,7 @@ const aiService = async ({ content, config }: AIServiceParams) => {
                 "You are an expert AI SEO Optimizer assistant. Provide concise, highly actionable growth strategies regarding meta configurations, keywords, content density, and backlink outreach pipelines. Keep answers short and technical.",
             temperature: config?.temperature || 0.7,
             maxOutputTokens: config?.maxOutputTokens || 500,
+            responseMimeType: config?.responseMimeType || "text/plain",
         },
     });
     if (!response.candidates || response.candidates.length === 0) {

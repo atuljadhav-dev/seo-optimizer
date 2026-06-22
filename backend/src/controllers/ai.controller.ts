@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import aiService from '../services/ai.service.js';
+import aiService from '../services/ai/ai.service.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 

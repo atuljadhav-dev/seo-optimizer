@@ -8,6 +8,7 @@ export function buildSeoReport(sections: {
 	link: SeoSectionResult;
 	technical: SeoSectionResult;
 	url: SeoSectionResult;
+	robots: SeoSectionResult;
 }): SeoReport {
 	const allSections = Object.values(sections);
 

@@ -14,6 +14,9 @@ import { logger } from './utils/logger.js';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 import { errorMiddleware } from './middleware/error.middleware.js';
+import { auditWebsite } from './services/seo/page-audit.service.js';
+import { crawlWebsite } from './services/seo/crawler.service.js';
+import { auditWebsites } from './services/seo/website-audit.service.js';
 dotenv.config();
 
 const app = express();
@@ -52,6 +55,24 @@ app.get('/', (req: Request, res: Response) => {
 		message: 'SEO Optimizer API is running.',
 		version: '1.0.0',
 	});
+});
+app.get('/check', (req: Request, res: Response) => {
+	auditWebsites('https://atuljadhav.tech')
+		.then((report) => {
+			res.json({
+				success: true,
+				message: 'SEO Audit completed successfully.',
+				report,
+			});
+		})
+		.catch((error) => {
+			logger.error(`Error during SEO Audit: ${error.message}`);
+			res.status(500).json({
+				success: false,
+				message: 'An error occurred during the SEO Audit.',
+				error: error.message,
+			});
+		});
 });
 app.use(errorMiddleware);
 app.listen(PORT, () => {

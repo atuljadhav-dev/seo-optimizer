@@ -118,3 +118,40 @@ export interface SeoReport {
 
 	recommendations: SeoRecommendation[];
 }
+export interface WebsiteAuditReport {
+	websiteUrl: string;
+	totalPages: number;
+	averageScore: number;
+	pageReports: { url: string; report: SeoReport }[];
+	summary: { passedPages: number; failedPages: number };
+}
+export interface RobotsData {
+	exists: boolean;
+	status: number;
+	hasSitemap: boolean;
+	hasUserAgent: boolean;
+	hasDisallow: boolean;
+	hasAllow: boolean;
+	hasCrawlDelay: boolean;
+	lines: number;
+}
+export interface SitemapData {
+	exists: boolean;
+	status: number;
+	urlCount: number;
+	isIndex: boolean;
+	urls: string[];
+}
+export interface SchemaInfo {
+	type: string;
+	context: string;
+	valid: boolean;
+}
+
+export interface SchemaData {
+	totalSchemas: number;
+	jsonLdCount: number;
+	microdataCount: number;
+	rdfaCount: number;
+	schemas: SchemaInfo[];
+}
