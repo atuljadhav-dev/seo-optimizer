@@ -1,6 +1,6 @@
 import type { SeoReport } from '../seo/types.js';
 import aiService from './ai.service.js';
-import { buildSeoReportPrompt } from './prompts/prompts.js';
+import { buildSeoReportPrompt } from './prompts.js';
 
 export async function explainSeoReport(report: SeoReport) {
 	const aiInput = {

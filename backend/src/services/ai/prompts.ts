@@ -1,4 +1,4 @@
-import type { SeoIssue } from '../seo/types.js';
+import type { SeoIssue,SeoReport } from '../seo/types.js';
 
 interface AISeoReportInput {
 	overallScore: number;
@@ -106,5 +106,67 @@ Example
    "learnMore":""
  }
 ]
+`;
+}
+
+export function buildOptimizationPlanPrompt(report: SeoReport): string {
+	const aiInput = {
+		overallScore: report.overallScore,
+
+		grade: report.grade,
+
+		topIssues: report.issues.slice(0, 10),
+
+		recommendations: report.recommendations.slice(0, 10),
+	};
+
+	return `
+You are an experienced SEO consultant.
+
+The following report was produced by a deterministic SEO engine.
+
+Never invent issues.
+
+Create a prioritized optimization plan.
+
+Rules
+
+- Highest priority first.
+- Explain expected benefit.
+- Keep explanations practical.
+- Mention estimated difficulty.
+- Mention estimated SEO impact.
+
+Return JSON only.
+
+${JSON.stringify(aiInput, null, 2)}
+
+Expected format
+
+{
+ "summary":"",
+ "priorityFixes":[
+
+   {
+
+     "priority":1,
+
+     "title":"",
+
+     "reason":"",
+
+     "difficulty":"Easy",
+
+     "impact":"High"
+
+   }
+
+ ],
+
+ "quickWins":[],
+
+ "strengths":[]
+
+}
 `;
 }
