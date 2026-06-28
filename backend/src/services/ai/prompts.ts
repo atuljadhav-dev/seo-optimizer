@@ -1,4 +1,4 @@
-import type { SeoIssue,SeoReport } from '../seo/types.js';
+import type { SeoIssue, SeoReport } from '../seo/types.js';
 
 interface AISeoReportInput {
 	overallScore: number;
@@ -167,6 +167,48 @@ Expected format
 
  "strengths":[]
 
+}
+`;
+}
+
+interface MetaGenerationInput {
+	url: string;
+	currentTitle: string;
+	currentMetaDescription: string;
+	report: SeoReport;
+}
+
+export function buildMetaGenerationPrompt(input: MetaGenerationInput): string {
+	const aiInput = {
+		url: input.url,
+		currentTitle: input.currentTitle,
+		currentMetaDescription: input.currentMetaDescription,
+		score: input.report.overallScore,
+		topIssues: input.report.issues.slice(0, 5),
+	};
+
+	return `
+You are an experienced SEO specialist.
+
+Improve the title and meta description.
+
+Rules:
+
+- Do not invent page content.
+- Keep the original intent.
+- Title: 50-60 characters.
+- Description: 140-160 characters.
+- Include the primary keyword naturally.
+- Return JSON only.
+
+${JSON.stringify(aiInput, null, 2)}
+
+Expected format:
+
+{
+	"title":"",
+	"description":"",
+	"reason":""
 }
 `;
 }
