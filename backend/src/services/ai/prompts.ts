@@ -212,3 +212,54 @@ Expected format:
 }
 `;
 }
+
+interface HeadingGenerationInput {
+	url: string;
+	currentTitle: string;
+	currentHeadings: { level: number; text: string }[];
+	report: SeoReport;
+}
+
+export function buildHeadingGenerationPrompt(
+	input: HeadingGenerationInput,
+): string {
+	const aiInput = {
+		url: input.url,
+		title: input.currentTitle,
+		headings: input.currentHeadings,
+		score: input.report.overallScore,
+		topIssues: input.report.issues
+			.filter((issue) => issue.id.startsWith('HEADING'))
+			.slice(0, 5),
+	};
+
+	return `
+You are an SEO content strategist.
+
+Improve the heading hierarchy.
+
+Rules:
+
+- Preserve page intent.
+- One H1 only.
+- Logical H2 structure.
+- H3 only under H2.
+- Don't invent unrelated sections.
+- Return JSON only.
+
+${JSON.stringify(aiInput, null, 2)}
+
+Expected JSON
+
+{
+  "h1":"",
+  "h2":[
+    {
+      "title":"",
+      "children":[]
+    }
+  ],
+  "reason":""
+}
+`;
+}
