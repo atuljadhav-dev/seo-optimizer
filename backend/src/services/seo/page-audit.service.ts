@@ -9,6 +9,8 @@ import { analyzeUrl } from './url.service.js';
 import type { SeoReport } from './types.js';
 import { crawlWebsite } from './crawler.service.js';
 import { analyzeRobots } from './robots.service.js';
+import { analyzeSitemap } from './sitemap.service.js';
+import { analyzeSchema } from './schema.service.js';
 export async function analyzePage(url: string): Promise<SeoReport> {
 	const crawlResult = await crawlWebsite(url, { maxDepth: 0, maxPages: 1 });
 
@@ -17,11 +19,7 @@ export async function analyzePage(url: string): Promise<SeoReport> {
 	}
 
 	const website = crawlResult.pages[0];
-	const crawlSummary = {
-		totalPages: crawlResult.totalPages,
-
-		totalInternalLinks: crawlResult.totalInternalLinks,
-	};
+	
 
 	if (!website) {
 		throw new Error('Unable to analyze website.');
@@ -38,6 +36,8 @@ export async function analyzePage(url: string): Promise<SeoReport> {
 	const technicalAnalysis = analyzeTechnicalSeo(website.$, website.finalUrl);
 	const urlAnalysis = analyzeUrl(website.finalUrl);
 	const robots= await analyzeRobots(website.finalUrl);
+	const sitemap= await analyzeSitemap(website.finalUrl);
+	const schemaAnalysis = analyzeSchema(website.$);
 	const report = buildSeoReport({
 		title: titleAnalysis,
 		meta: metaAnalysis,
@@ -47,6 +47,8 @@ export async function analyzePage(url: string): Promise<SeoReport> {
 		technical: technicalAnalysis,
 		url: urlAnalysis,
 		robots: robots,
+		sitemap: sitemap,
+		schema: schemaAnalysis,
 	});
 
 	return report;

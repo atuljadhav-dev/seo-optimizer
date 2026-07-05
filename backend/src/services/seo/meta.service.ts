@@ -21,6 +21,7 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 					'The page does not contain a meta description.',
 					'high',
 					'Add a unique meta description between 120 and 160 characters.',
+					true
 				),
 			],
 			data: { description: '', length: 0 },
@@ -37,6 +38,7 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 				`Current length is ${meta.length} characters.`,
 				'medium',
 				'Increase the description length to around 120–160 characters.',
+				true
 			),
 		);
 	}
@@ -51,6 +53,7 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 				`Current length is ${meta.length} characters.`,
 				'medium',
 				'Keep the description below 160 characters.',
+				true
 			),
 		);
 	}

@@ -18,8 +18,8 @@ export function analyzeTitle(title: string, url: string): SeoSectionResult {
 				'Missing title',
 				'This page does not contain a title tag.',
 				'high',
-
 				'Add a unique title describing the page.',
+				true
 			),
 		);
 
@@ -36,6 +36,7 @@ export function analyzeTitle(title: string, url: string): SeoSectionResult {
 				`Current length is ${trimmedTitle.length} characters.`,
 				'medium',
 				'Use a title between 30 and 60 characters.',
+				true
 			),
 		);
 	}
@@ -50,6 +51,7 @@ export function analyzeTitle(title: string, url: string): SeoSectionResult {
 				`Current length is ${trimmedTitle.length} characters.`,
 				'medium',
 				'Keep the title under 60 characters.',
+				true
 			),
 		);
 	}

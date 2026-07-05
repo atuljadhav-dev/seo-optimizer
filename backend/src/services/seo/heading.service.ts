@@ -32,7 +32,7 @@ export function analyzeHeadings($: cheerio.CheerioAPI): SeoSectionResult {
 
 		const text = $(element).text().trim();
 
-		headings.push({ level, text });
+		headings.push({ level, text ,uid: $(element).attr('id') ?? ''});
 
 		summary.total++;
 
@@ -51,6 +51,7 @@ export function analyzeHeadings($: cheerio.CheerioAPI): SeoSectionResult {
 				'No H1 heading was found.',
 				'high',
 				'Add one descriptive H1 heading.',
+				true
 			),
 		);
 	}

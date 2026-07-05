@@ -1,14 +1,18 @@
-import type { SeoIssue } from "../seo/types.js";
-import aiService from "./ai.service.js";
-import { buildSeoFixPrompt } from "./prompts.js";
+import type { SeoIssue } from '../seo/types.js';
+import aiService from './ai.service.js';
+import { buildSeoFixPrompt } from './prompts.js';
 
-export async function generateFixSuggestions(issues: SeoIssue[]) {
+export async function generateFixSuggestions(issues: SeoIssue[],about:string): Promise<any> {
 	if (issues.length === 0) {
 		return [];
 	}
-
-	const prompt = buildSeoFixPrompt(issues.slice(0, 10));
-
+	issues = issues.filter((issue) => issue.aiFix);
+	const coissues = issues.map((issue) => ({
+		_id: issue._id,
+		title: issue.title,
+		description: issue.description,
+	}));
+	const prompt = buildSeoFixPrompt(coissues.slice(0, 10),about);
 	const response = await aiService({
 		content: prompt,
 		config: {

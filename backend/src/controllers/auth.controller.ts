@@ -19,6 +19,7 @@ export const signIn = asyncHandler(
 		const { email, password } = req.body;
 		const result = await signInUser(email, password);
 		if (!result.success) {
+			console.log('Sign-in failed:', result.message);
 			errorResponse(res, result.message!, 401);
 			return;
 		}

@@ -1,3 +1,4 @@
+import nextIssueId from '../../utils/uniqueId.js';
 import { type SeoIssue } from './types.js';
 export function createIssue(
 	id: string,
@@ -5,6 +6,15 @@ export function createIssue(
 	description: string,
 	severity: 'low' | 'medium' | 'high',
 	recommendation: string,
+	aiFix: boolean = false,
 ): SeoIssue {
-	return { id, title, description, severity, recommendation };
+	return {
+		id,
+		_id: nextIssueId(),
+		title,
+		description,
+		severity,
+		recommendation,
+		aiFix,
+	};
 }

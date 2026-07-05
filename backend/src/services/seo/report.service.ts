@@ -9,6 +9,8 @@ export function buildSeoReport(sections: {
 	technical: SeoSectionResult;
 	url: SeoSectionResult;
 	robots: SeoSectionResult;
+	sitemap: SeoSectionResult;
+	schema: SeoSectionResult;
 }): SeoReport {
 	const allSections = Object.values(sections);
 
@@ -65,7 +67,7 @@ export function buildSeoReport(sections: {
 	);
 	return {
 		overallScore,
-
+		url: sections.title.data?.url as string ?? '',
 		grade,
 
 		summary: {

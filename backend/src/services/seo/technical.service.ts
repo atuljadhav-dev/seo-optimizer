@@ -7,6 +7,7 @@ import {
 } from './types.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
+import { tr } from 'zod/locales';
 
 export function analyzeTechnicalSeo(
 	$: cheerio.CheerioAPI,
@@ -112,6 +113,7 @@ export function analyzeTechnicalSeo(
 				'Social sharing metadata was not found.',
 				'low',
 				'Add Open Graph meta tags.',
+				true,
 			),
 		);
 	}
@@ -125,6 +127,7 @@ export function analyzeTechnicalSeo(
 				'No Twitter Card metadata found.',
 				'low',
 				'Add Twitter Card meta tags.',
+				true,
 			),
 		);
 	}

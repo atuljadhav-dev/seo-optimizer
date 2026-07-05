@@ -128,21 +128,7 @@ export function analyzeLinks(
 			);
 		}
 	}
-	for (const link of links) {
-		if (link.href.startsWith('javascript:')) {
-			score = deductScore(score, 'medium');
 
-			issues.push(
-				createIssue(
-					'LINK_JAVASCRIPT',
-					'JavaScript link detected',
-					link.href,
-					'medium',
-					'Prefer real URLs instead of javascript: links.',
-				),
-			);
-		}
-	}
 	return {
 		score,
 

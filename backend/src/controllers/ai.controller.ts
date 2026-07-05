@@ -1,21 +1,12 @@
 import { type Request, type Response } from 'express';
 import aiService from '../services/ai/ai.service.js';
-import { successResponse, errorResponse } from '../utils/apiResponse.js';
+import { successResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
+import { generateFixSuggestions } from '../services/ai/seo-fix.service.js';
 
 export const processChatInstruction = asyncHandler(
 	async (req: Request, res: Response): Promise<void> => {
 		const { prompt } = req.body;
-
-		if (!prompt) {
-			errorResponse(
-				res,
-				'A chat prompt is required to process request.',
-				400,
-			);
-			return;
-		}
-
 		const aiResponse = await aiService({
 			content: prompt,
 			config: {
@@ -26,6 +17,16 @@ export const processChatInstruction = asyncHandler(
 			},
 		});
 
+		successResponse(res, 'AI response generated successfully', {
+			reply: aiResponse,
+		});
+	},
+);
+
+export const processSeoFixSuggestions = asyncHandler(
+	async (req: Request, res: Response): Promise<void> => {
+		const { issues, about } = req.body;
+		const aiResponse = await generateFixSuggestions(issues, about);
 		successResponse(res, 'AI response generated successfully', {
 			reply: aiResponse,
 		});

@@ -5,5 +5,5 @@ export const aiPromptSchema = z.object({
 		.string()
 		.trim()
 		.min(5, 'Prompt is too short')
-		.max(5000, 'Prompt is too long'),
+		.max(500, 'Prompt is too long'),
 });

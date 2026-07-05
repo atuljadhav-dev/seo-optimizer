@@ -5,7 +5,7 @@ import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
 
 export async function analyzeSitemap(url: string): Promise<SeoSectionResult> {
-	let score:number = SEO_SECTION_SCORE.TECHNICAL;
+	let score: number = SEO_SECTION_SCORE.TECHNICAL;
 
 	const issues: SeoIssue[] = [];
 

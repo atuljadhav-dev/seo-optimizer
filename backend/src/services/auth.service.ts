@@ -30,13 +30,12 @@ export const registerUser = async (
 
 export const signInUser = async (email: string, password: string) => {
 	const user = await User.findOne({ email });
-
 	if (!user || !user.password) {
 		return { success: false, message: 'Invalid email or password' };
 	}
 
 	const isPasswordMatch = await bcrypt.compare(password, user.password);
-
+	console.log('Password match:', isPasswordMatch); // Debugging line
 	if (!isPasswordMatch) {
 		return { success: false, message: 'Invalid email or password' };
 	}

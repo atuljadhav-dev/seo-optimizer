@@ -1,3 +1,4 @@
+import { logger } from '../../utils/logger.js';
 import { crawlWebsite } from './crawler.service.js';
 import { analyzePage } from './page-audit.service.js';
 import type { WebsiteAuditReport } from './types.js';
@@ -11,9 +12,7 @@ export async function auditWebsites(url: string): Promise<WebsiteAuditReport> {
 
 	for (const page of crawlResult.pages) {
 		const report = await analyzePage(page.finalUrl);
-		console.log(`Audited ${page.finalUrl}: Score ${report.overallScore}`);
 		totalScore += report.overallScore;
-
 		pageReports.push({ url: page.url, report });
 	}
 

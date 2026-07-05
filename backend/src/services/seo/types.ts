@@ -1,10 +1,13 @@
 import * as cheerio from 'cheerio';
 export interface SeoIssue {
 	id: string;
+	_id: string;
 	title: string;
 	description: string;
 	severity: 'low' | 'medium' | 'high';
 	recommendation: string;
+	aiFix: boolean;
+	uid?: string;
 }
 
 export interface SeoSectionResult {
@@ -22,22 +25,11 @@ export interface WebsiteContent {
 	status: number;
 	loadTime: number;
 }
-// export interface SeoReport {
-// 	overallScore: number;
 
-// 	sections: {
-// 		title: SeoSectionResult;
-
-// 		meta: SeoSectionResult;
-// 	};
-
-// 	totalIssues: number;
-
-// 	issues: SeoIssue[];
-// }
 export interface HeadingInfo {
 	level: number;
 	text: string;
+	uid: string;
 }
 
 export interface HeadingSummary {
@@ -105,7 +97,7 @@ export interface SeoRecommendation {
 
 export interface SeoReport {
 	overallScore: number;
-
+	url: string;
 	grade: string;
 
 	summary: SeoSummary;
@@ -154,4 +146,31 @@ export interface SchemaData {
 	microdataCount: number;
 	rdfaCount: number;
 	schemas: SchemaInfo[];
+}
+export interface CrawlOptions {
+	maxDepth: number;
+	maxPages: number;
+}
+
+export interface CrawledPage {
+	url: string;
+
+	finalUrl: string;
+
+	status: number;
+
+	loadTime: number;
+
+	html: string;
+
+	$: cheerio.CheerioAPI;
+
+	depth: number;
+}
+
+export interface CrawlResult {
+	pages: CrawledPage[];
+	visitedUrls: string[];
+	totalPages: number;
+	totalInternalLinks: number;
 }

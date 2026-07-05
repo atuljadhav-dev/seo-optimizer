@@ -79,6 +79,7 @@ export async function analyzeRobots(url: string): Promise<SeoSectionResult> {
 					'No user-agent rule found.',
 					'medium',
 					'Add at least one User-agent directive.',
+					true
 				),
 			);
 		}

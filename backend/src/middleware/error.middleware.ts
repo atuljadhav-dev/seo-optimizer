@@ -1,5 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import { errorResponse } from '../utils/apiResponse.js';
+import { logger } from '../utils/logger.js';
 
 export const errorMiddleware = (
 	err: Error,
@@ -7,7 +8,6 @@ export const errorMiddleware = (
 	res: Response,
 	next: NextFunction,
 ) => {
-	console.error(err);
-
+	logger.error(err);
 	return errorResponse(res, 'Internal Server Error', 500, err.message);
 };
