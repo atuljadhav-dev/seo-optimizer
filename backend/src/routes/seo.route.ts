@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
 	getFullWebsiteAuditReport,
 	getPageAuditReport,
+	processAnalyzePageSpeed,
 	processFixStaticSeoIssues,
 } from '../controllers/seo.controller.js';
 import { validate } from '../middleware/validate.js';
@@ -16,4 +17,5 @@ router.post(
 );
 router.post('/audit/page', validate(websiteSchema), getPageAuditReport);
 router.post('/fix', processFixStaticSeoIssues);
+router.post('/analyze/pagespeed', processAnalyzePageSpeed);
 export default router;
