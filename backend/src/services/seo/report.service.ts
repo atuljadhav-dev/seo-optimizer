@@ -1,6 +1,6 @@
 import { type SeoReport, type SeoSectionResult } from './types.js';
 
-export function buildSeoReport(sections: {
+export const buildSeoReport = (sections: {
 	title: SeoSectionResult;
 	meta: SeoSectionResult;
 	heading: SeoSectionResult;
@@ -11,7 +11,7 @@ export function buildSeoReport(sections: {
 	robots: SeoSectionResult;
 	sitemap: SeoSectionResult;
 	schema: SeoSectionResult;
-}): SeoReport {
+}): SeoReport => {
 	const allSections = Object.values(sections);
 
 	const totalScore = allSections.reduce(

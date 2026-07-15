@@ -9,10 +9,10 @@ import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
 import { tr } from 'zod/locales';
 
-export function analyzeTechnicalSeo(
+export const analyzeTechnicalSeo = (
 	$: cheerio.CheerioAPI,
 	url: string,
-): SeoSectionResult {
+): SeoSectionResult => {
 	let score: number = SEO_SECTION_SCORE.TECHNICAL;
 
 	const issues: SeoIssue[] = [];

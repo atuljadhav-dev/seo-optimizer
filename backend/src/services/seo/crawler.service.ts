@@ -6,10 +6,10 @@ import type {
 	CrawlResult,
 } from './types.js';
 
-export async function crawlWebsite(
+export const crawlWebsite = async (
 	startUrl: string,
 	options: CrawlOptions = { maxDepth: 2, maxPages: 20 },
-): Promise<CrawlResult> {
+): Promise<CrawlResult> => {
 	const browser = await chromium.launch({ headless: true });
 
 	const page = await browser.newPage();

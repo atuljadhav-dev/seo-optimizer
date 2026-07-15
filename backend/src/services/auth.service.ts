@@ -33,9 +33,8 @@ export const signInUser = async (email: string, password: string) => {
 	if (!user || !user.password) {
 		return { success: false, message: 'Invalid email or password' };
 	}
-
+	console.log(user.password, password);
 	const isPasswordMatch = await bcrypt.compare(password, user.password);
-	console.log('Password match:', isPasswordMatch); // Debugging line
 	if (!isPasswordMatch) {
 		return { success: false, message: 'Invalid email or password' };
 	}

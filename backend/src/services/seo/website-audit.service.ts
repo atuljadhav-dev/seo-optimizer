@@ -3,7 +3,7 @@ import { crawlWebsite } from './crawler.service.js';
 import { analyzePage } from './page-audit.service.js';
 import type { WebsiteAuditReport } from './types.js';
 
-export async function auditWebsites(url: string): Promise<WebsiteAuditReport> {
+export const auditWebsites = async (url: string): Promise<WebsiteAuditReport> => {
 	const crawlResult = await crawlWebsite(url, { maxDepth: 2, maxPages: 20 });
 
 	const pageReports: WebsiteAuditReport['pageReports'] = [];

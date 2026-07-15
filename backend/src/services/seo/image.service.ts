@@ -7,7 +7,7 @@ import {
 import { createIssue } from './issue.service.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
-export function analyzeImages($: cheerio.CheerioAPI): SeoSectionResult {
+export const analyzeImages = ($: cheerio.CheerioAPI): SeoSectionResult => {
 	let score: number = SEO_SECTION_SCORE.IMAGE;
 
 	const issues: SeoIssue[] = [];

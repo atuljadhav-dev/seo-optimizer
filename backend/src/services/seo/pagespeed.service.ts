@@ -5,10 +5,10 @@ type PageSpeedStrategy = 'mobile' | 'desktop';
 
 const CATEGORIES = ['performance', 'accessibility', 'best-practices', 'seo'];
 
-export async function getPageSpeedReport(
+export const getPageSpeedReport = async (
 	url: string,
 	strategy: PageSpeedStrategy,
-) {
+) => {
 	const params = new URLSearchParams({ url, strategy });
 
 	for (const category of CATEGORIES) {
@@ -29,9 +29,9 @@ export async function getPageSpeedReport(
 	}
 
 	return response.json();
-}
+};
 
-export function normalizePageSpeedReport(data: any) {
+export const normalizePageSpeedReport = (data: any) => {
 	const categories = data.lighthouseResult?.categories ?? {};
 	const audits = data.lighthouseResult?.audits ?? {};
 
@@ -61,8 +61,8 @@ export function normalizePageSpeedReport(data: any) {
 			displayValue: audit.displayValue ?? null,
 		})),
 	};
-}
-export async function analyzePageSpeed(url: string) {
+};
+export const analyzePageSpeed = async (url: string) => {
 	const [mobileRaw, desktopRaw] = await Promise.all([
 		getPageSpeedReport(url, 'mobile'),
 		getPageSpeedReport(url, 'desktop'),
@@ -71,4 +71,4 @@ export async function analyzePageSpeed(url: string) {
 		mobile: normalizePageSpeedReport(mobileRaw),
 		desktop: normalizePageSpeedReport(desktopRaw),
 	};
-}
+};

@@ -8,10 +8,10 @@ import { createIssue } from './issue.service.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
 
-export function analyzeLinks(
+export const analyzeLinks = (
 	$: cheerio.CheerioAPI,
 	baseUrl: string,
-): SeoSectionResult {
+): SeoSectionResult => {
 	let score: number = SEO_SECTION_SCORE.LINK;
 
 	const issues: SeoIssue[] = [];

@@ -8,7 +8,7 @@ import {
 } from './types.js';
 import { deductScore } from './deductScore.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
-export function analyzeHeadings($: cheerio.CheerioAPI): SeoSectionResult {
+export const analyzeHeadings = ($: cheerio.CheerioAPI): SeoSectionResult => {
 	let score: number = SEO_SECTION_SCORE.HEADING;
 
 	const issues: SeoIssue[] = [];

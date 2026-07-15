@@ -1,5 +1,6 @@
 let issueCounter = 1;
 
-export default function nextIssueId() {
+const nextIssueId = () => {
 	return `issue_${String(issueCounter++).padStart(4, '0')}`;
-}
+};
+export default nextIssueId;

@@ -1,13 +1,13 @@
 import nextIssueId from '../../utils/uniqueId.js';
 import { type SeoIssue } from './types.js';
-export function createIssue(
+export const createIssue = (
 	id: string,
 	title: string,
 	description: string,
 	severity: 'low' | 'medium' | 'high',
 	recommendation: string,
 	aiFix: boolean = false,
-): SeoIssue {
+): SeoIssue => {
 	return {
 		id,
 		_id: nextIssueId(),

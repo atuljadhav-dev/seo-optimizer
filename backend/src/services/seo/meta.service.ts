@@ -3,7 +3,9 @@ import { createIssue } from './issue.service.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
 
-export function analyzeMetaDescription(description: string): SeoSectionResult {
+export const analyzeMetaDescription = (
+	description: string,
+): SeoSectionResult => {
 	const issues: SeoIssue[] = [];
 
 	let score: number = SEO_SECTION_SCORE.META;
@@ -21,7 +23,7 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 					'The page does not contain a meta description.',
 					'high',
 					'Add a unique meta description between 120 and 160 characters.',
-					true
+					true,
 				),
 			],
 			data: { description: '', length: 0 },
@@ -38,7 +40,7 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 				`Current length is ${meta.length} characters.`,
 				'medium',
 				'Increase the description length to around 120–160 characters.',
-				true
+				true,
 			),
 		);
 	}
@@ -53,7 +55,7 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 				`Current length is ${meta.length} characters.`,
 				'medium',
 				'Keep the description below 160 characters.',
-				true
+				true,
 			),
 		);
 	}
@@ -78,4 +80,4 @@ export function analyzeMetaDescription(description: string): SeoSectionResult {
 		issues,
 		data: { description: meta, length: meta.length },
 	};
-}
+};

@@ -31,7 +31,7 @@ export const AIAssistant: React.FC = () => {
 			const response = await API.post('/ai/chat', {
 				prompt: userMsg.text,
 			});
-			logger.info('AI response received:', response.data);
+			console.log('AI response received:', response.data);
 			const aiMsg: Message = {
 				sender: 'ai',
 				text: response.data.reply || 'Analysis completed successfully.',
@@ -57,11 +57,11 @@ export const AIAssistant: React.FC = () => {
 		<>
 			<button
 				onClick={() => setIsOpen(!isOpen)}
-				className='fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-cyan-600 text-white shadow-2xl transition-transform hover:scale-105 active:scale-95 dark:bg-cyan-500 dark:text-slate-950'>
+				className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-cyan-600 text-white shadow-2xl transition-transform hover:scale-105 active:scale-95 dark:bg-cyan-500 dark:text-slate-950">
 				{isOpen ? (
-					<span className='text-xl'>✕</span>
+					<span className="text-xl">✕</span>
 				) : (
-					<span className='text-xl'>✨</span>
+					<span className="text-xl">✨</span>
 				)}
 			</button>
 
@@ -72,16 +72,16 @@ export const AIAssistant: React.FC = () => {
 						: 'translate-y-12 opacity-0 pointer-events-none'
 				}`}>
 				{/* Panel Drawer Header */}
-				<div className='flex items-center space-x-2 border-b border-slate-100 p-4 dark:border-slate-700'>
-					<div className='flex h-6 w-6 items-center justify-center rounded-md bg-cyan-500 text-xs font-bold text-slate-950'>
+				<div className="flex items-center space-x-2 border-b border-slate-100 p-4 dark:border-slate-700">
+					<div className="flex h-6 w-6 items-center justify-center rounded-md bg-cyan-500 text-xs font-bold text-slate-950">
 						AI
 					</div>
-					<h3 className='text-sm font-bold tracking-tight'>
+					<h3 className="text-sm font-bold tracking-tight">
 						Optimization Copilot
 					</h3>
 				</div>
 
-				<div className='flex-1 overflow-y-auto p-4 space-y-4'>
+				<div className="flex-1 overflow-y-auto p-4 space-y-4">
 					{messages.map((msg, index) => (
 						<div
 							key={index}
@@ -101,8 +101,8 @@ export const AIAssistant: React.FC = () => {
 						</div>
 					))}
 					{loading && (
-						<div className='flex items-start'>
-							<div className='max-w-[85%] rounded-xl bg-slate-100 px-3.5 py-2 text-xs text-slate-400 dark:bg-slate-900 animate-pulse'>
+						<div className="flex items-start">
+							<div className="max-w-[85%] rounded-xl bg-slate-100 px-3.5 py-2 text-xs text-slate-400 dark:bg-slate-900 animate-pulse">
 								Thinking...
 							</div>
 						</div>
@@ -111,9 +111,9 @@ export const AIAssistant: React.FC = () => {
 
 				<form
 					onSubmit={handleSendMessage}
-					className='border-t border-slate-100 p-3 dark:border-slate-700 flex gap-2'>
+					className="border-t border-slate-100 p-3 dark:border-slate-700 flex gap-2">
 					<input
-						type='text'
+						type="text"
 						disabled={loading}
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
@@ -122,12 +122,12 @@ export const AIAssistant: React.FC = () => {
 								? 'Waiting for response...'
 								: 'Ask AI Copilot for advice...'
 						}
-						className='flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 disabled:opacity-60'
+						className="flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs outline-none focus:border-cyan-500 dark:border-slate-700 dark:bg-slate-900 disabled:opacity-60"
 					/>
 					<button
-						type='submit'
+						type="submit"
 						disabled={loading || !input.trim()}
-						className='rounded-lg bg-slate-900 px-3 text-xs font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200 disabled:opacity-50'>
+						className="rounded-lg bg-slate-900 px-3 text-xs font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200 disabled:opacity-50">
 						Send
 					</button>
 				</form>

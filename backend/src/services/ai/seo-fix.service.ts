@@ -2,7 +2,7 @@ import type { SeoIssue } from '../seo/types.js';
 import aiService from './ai.service.js';
 import { buildSeoFixPrompt } from './prompts.js';
 
-export async function generateFixSuggestions(issues: SeoIssue[],about:string): Promise<any> {
+export const generateFixSuggestions = async (issues: SeoIssue[],about:string): Promise<any> => {
 	if (issues.length === 0) {
 		return [];
 	}

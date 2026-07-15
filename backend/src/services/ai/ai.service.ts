@@ -21,11 +21,6 @@ interface AIServiceParams {
 	};
 }
 const aiService = async ({ content, config }: AIServiceParams) => {
-	if (!aiApiKey) {
-		throw new Error(
-			'Gemini API key configuration is missing on the server.',
-		);
-	}
 	const response = await aiClient.models.generateContent({
 		model: 'gemini-2.5-flash',
 		contents: content,

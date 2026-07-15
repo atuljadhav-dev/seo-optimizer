@@ -11,7 +11,7 @@ import { crawlWebsite } from './crawler.service.js';
 import { analyzeRobots } from './robots.service.js';
 import { analyzeSitemap } from './sitemap.service.js';
 import { analyzeSchema } from './schema.service.js';
-export async function analyzePage(url: string): Promise<SeoReport> {
+export const analyzePage = async (url: string): Promise<SeoReport> => {
 	const crawlResult = await crawlWebsite(url, { maxDepth: 0, maxPages: 1 });
 
 	if (crawlResult.pages.length === 0) {

@@ -3,7 +3,7 @@ import { deductScore } from './deductScore.js';
 import { createIssue } from './issue.service.js';
 import { type SeoIssue, type SeoSectionResult } from './types.js';
 
-export function analyzeTitle(title: string, url: string): SeoSectionResult {
+export const analyzeTitle = (title: string, url: string): SeoSectionResult => {
 	const issues: SeoIssue[] = [];
 
 	let score: number = SEO_SECTION_SCORE.TITLE;

@@ -9,7 +9,7 @@ import { createIssue } from './issue.service.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
 
-export function analyzeSchema($: cheerio.CheerioAPI): SeoSectionResult {
+export const analyzeSchema = ($: cheerio.CheerioAPI): SeoSectionResult => {
 	let score: number = SEO_SECTION_SCORE.TECHNICAL;
 
 	const issues: SeoIssue[] = [];
