@@ -47,6 +47,7 @@ export interface ImageInfo {
 	lazy: boolean;
 	width?: string;
 	height?: string;
+	uid: string;
 }
 export interface LinkInfo {
 	href: string;
@@ -55,6 +56,7 @@ export interface LinkInfo {
 	external: boolean;
 	noFollow: boolean;
 	noOpener: boolean;
+	uid: string;
 	noReferrer: boolean;
 }
 export interface TechnicalSeoData {

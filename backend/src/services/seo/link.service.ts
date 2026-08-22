@@ -19,7 +19,7 @@ export const analyzeLinks = (
 	const links: LinkInfo[] = [];
 
 	const baseHost = new URL(baseUrl).hostname;
-
+	let count = 0;
 	$('a').each((_, element) => {
 		const href = ($(element).attr('href') ?? '').trim();
 
@@ -58,6 +58,7 @@ export const analyzeLinks = (
 			noOpener: $(element).attr('rel')?.includes('noopener') ?? false,
 
 			noReferrer: $(element).attr('rel')?.includes('noreferrer') ?? false,
+		uid:`link-uid`
 		});
 	});
 	for (const link of links) {
@@ -146,4 +147,4 @@ export const analyzeLinks = (
 			links,
 		},
 	};
-}
+};

@@ -14,7 +14,7 @@ export const analyzeHeadings = ($: cheerio.CheerioAPI): SeoSectionResult => {
 	const issues: SeoIssue[] = [];
 
 	const headings: HeadingInfo[] = [];
-
+	let count = 0;
 	const summary: HeadingSummary = {
 		total: 0,
 		h1: 0,
@@ -32,7 +32,7 @@ export const analyzeHeadings = ($: cheerio.CheerioAPI): SeoSectionResult => {
 
 		const text = $(element).text().trim();
 
-		headings.push({ level, text ,uid: $(element).attr('id') ?? ''});
+		headings.push({ level, text, uid: `heading-${count++}` });
 
 		summary.total++;
 
@@ -51,7 +51,7 @@ export const analyzeHeadings = ($: cheerio.CheerioAPI): SeoSectionResult => {
 				'No H1 heading was found.',
 				'high',
 				'Add one descriptive H1 heading.',
-				true
+				true,
 			),
 		);
 	}
@@ -136,4 +136,4 @@ export const analyzeHeadings = ($: cheerio.CheerioAPI): SeoSectionResult => {
 		issues,
 		data: { summary, headings },
 	};
-}
+};

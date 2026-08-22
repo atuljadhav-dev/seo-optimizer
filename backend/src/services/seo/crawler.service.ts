@@ -1,10 +1,6 @@
 import { chromium } from 'playwright';
 import * as cheerio from 'cheerio';
-import type {
-	CrawlOptions,
-	CrawledPage,
-	CrawlResult,
-} from './types.js';
+import type { CrawlOptions, CrawledPage, CrawlResult } from './types.js';
 
 export const crawlWebsite = async (
 	startUrl: string,
@@ -39,13 +35,14 @@ export const crawlWebsite = async (
 			visited.add(current.url);
 
 			try {
+				const start = Date.now();
 				const response = await page.goto(current.url, {
 					waitUntil: 'networkidle',
 					timeout: 30000,
 				});
-				const start = Date.now();
-				const html = await page.content();
 				const loadTime = Date.now() - start;
+				const html = await page.content();
+
 				const $ = cheerio.load(html);
 				pages.push({
 					url: current.url,
@@ -115,8 +112,13 @@ export const crawlWebsite = async (
 			}
 		}
 
-		return { pages, visitedUrls: [...visited] ,totalPages: pages.length, totalInternalLinks: discoveredLinks.size};
+		return {
+			pages,
+			visitedUrls: [...visited],
+			totalPages: pages.length,
+			totalInternalLinks: discoveredLinks.size,
+		};
 	} finally {
 		await browser.close();
 	}
-}
+};

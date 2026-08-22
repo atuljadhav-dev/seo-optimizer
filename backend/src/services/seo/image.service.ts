@@ -13,7 +13,7 @@ export const analyzeImages = ($: cheerio.CheerioAPI): SeoSectionResult => {
 	const issues: SeoIssue[] = [];
 
 	const images: ImageInfo[] = [];
-
+	let count = 0;
 	$('img').each((_, element) => {
 		const image: ImageInfo = {
 			src: $(element).attr('src') ?? '',
@@ -21,6 +21,7 @@ export const analyzeImages = ($: cheerio.CheerioAPI): SeoSectionResult => {
 			alt: $(element).attr('alt') ?? '',
 
 			lazy: $(element).attr('loading') === 'lazy',
+			uid: `image-${count++}`,
 		};
 
 		const width = $(element).attr('width');
@@ -118,4 +119,4 @@ export const analyzeImages = ($: cheerio.CheerioAPI): SeoSectionResult => {
 			images,
 		},
 	};
-}
+};

@@ -9,5 +9,5 @@ export const errorMiddleware = (
 	next: NextFunction,
 ) => {
 	logger.error(err);
-	return errorResponse(res, 'Internal Server Error', 500, err.message);
+	return errorResponse(res, 'Internal Server Error', 500);
 };

@@ -7,7 +7,6 @@ import {
 } from './types.js';
 import { SEO_SECTION_SCORE } from '../../constants/seoSectionScore.js';
 import { deductScore } from './deductScore.js';
-import { tr } from 'zod/locales';
 
 export const analyzeTechnicalSeo = (
 	$: cheerio.CheerioAPI,
